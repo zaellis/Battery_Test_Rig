@@ -33,6 +33,6 @@ transitioning from charge to discharge and vice versa. See [Data Analysis](#data
 
 From 100% to 0% disat points along the discharge curve discharge at 1C and then let rest for an hour
 Repeat along charge curve from 0% to 100% with charge at 1C and then rest
-Static resistance can be determined by examining the instantaneous voltage change when charging / 
-discharging starts
+Static resistance can be determined by examining the instantaneous voltage change when charging / discharging starts
+
 See [Data Analysis](#data-analysis) for determining dynamic components
