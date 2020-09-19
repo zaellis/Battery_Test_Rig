@@ -4,13 +4,13 @@ Design documents and Auxiliary Scripts for Battery Cell Testing Rig
 ## Battery Parameters that can be Modelled as Demonstrated Here
 - OCV: As a function of SOC and temperature
 - Coulombic Efficiency: As a function of temperature
-- Hysteresis: Instantaneous and dynamic
+- Hysteresis: Instantaneous [and](#coulombic-efficiency-tests) dynamic
 - Static Series Resistance: R0 term
 - Dynamic Series Resistance: R1 , R2 , C1 C2 terms
 ## Generalized Description of Tests Performed to Generate Models
 ### OCV Tests:
 
-    1. Soak cell at specified temperature [and](#coulombic-efficiency-tests) at fully charged voltage for 2 hours
+    1. Soak cell at specified temperature and at fully charged voltage for 2 hours
     2. Discharge at C/30 until Vmin is reached at specified temp
     3. Soak at temp for 1 hour and check that cell is at Vmin
     4. If not at Vmin, charge or discharge at C/30 until Vmin is reached
