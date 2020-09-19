@@ -8,19 +8,19 @@ Design documents and Auxiliary Scripts for Battery Cell Testing Rig
 - Static Series Resistance: R0 term
 - Dynamic Series Resistance: R1 , R2 , C1 C2 terms
 ## Generalized Description of Tests Performed to Generate Models
-OCV Tests:
+### OCV Tests:
 
-    1. Soak cell at specified temperature and at fully charged voltage for 2 hours
+    1. Soak cell at specified temperature [and](#coulombic-efficiency-tests) at fully charged voltage for 2 hours
     2. Discharge at C/30 until Vmin is reached at specified temp
     3. Soak at temp for 1 hour and check that cell is at Vmin
     4. If not at Vmin, charge or discharge at C/30 until Vmin is reached
     5. Repeat steps 2-4 except at C/30 charge and until Vmax is reached
-Coulombic Efficiency Tests:
+### Coulombic Efficiency Tests:
 
     Comes from OCV Test data. Measures the amount of charge put into the battery vs. 
     what was taken out to determine overall efficiency see Math
 
-Hysteresis tests:
+### Hysteresis tests:
 
     1. Discharge at C/30 from 100 - 0
     2. Charge from 0 - 95
@@ -29,7 +29,7 @@ Hysteresis tests:
     Data Can be analyzed to determine hysteresis characteristics of the cell when 
     transitioning from charge to discharge and vice versa. See Data Analysis
     
-Static and Dynamic Series Resistance:
+### Static and Dynamic Series Resistance:
 
     From 100% to 0% disat points along the discharge curve discharge at 1C and then let rest for an hour
     Repeat along charge curve from 0% to 100% with charge at 1C and then rest
