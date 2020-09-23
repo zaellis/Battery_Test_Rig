@@ -46,7 +46,7 @@ def extract_OCV(data, start_d, end_d, start_c, end_c):
     q_c = data['capacity'][end_c] - data['capacity'][start_c]      #determine charge capacity
     coulomb_eff = q / q_c                                          #coulombic efficiency where discharge efficiency is assumed to be 1
     static_100 = (data['voltage'][start_d] - data['voltage'][start_d + 1]) / (-1 * data['current'][start_d + 1]) #estimated static resistance at 100% SOC
-    static_0 = (data['voltage'][start_c] - data['voltage'][start_c + 1]) / data['current'][start_c + 1]          #estimated static resistance at 0% SOC
+    static_0 = (data['voltage'][start_c + 1] - data['voltage'][start_c]) / data['current'][start_c + 1]          #estimated static resistance at 0% SOC
 
     for i in range(start_d, end_d + 1): #gather discharge curve data
         SOC_d.append(((q - (data['capacity'][i] - data['capacity'][start_d])) / q) * 100)
@@ -74,8 +74,8 @@ def extract_OCV(data, start_d, end_d, start_c, end_c):
         SOC.append(i / 10)
         OCV.append(top_OCV(i/10) + (((slope_d * (100 - (i/10))) + static_100) * top_current(i/10)))
 
-    '''
-    plt.plot(SOC, OCV, SOC_d, OCV_d, SOC_c, OCV_c) #sanity plot 
+    '''    
+    plt.plot(SOC, OCV, SOC_d, OCV_d, SOC_c, OCV_c) #sanity plot
     plt.show()
     '''
 
