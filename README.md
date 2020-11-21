@@ -70,7 +70,7 @@ For Charge:
   
 Having kept track of four different energies at this point a new equation can be used to find coulombic efficiency at any temp while only knowing the 
 charge / discharge batteries for one predefined temp.  
-![equation](https://latex.codecogs.com/gif.latex?%28%5Cfrac%7BEnergyDischargedTotal%7D%7BEnergyChargedTestTemp%7D%20-%20%28CoulombicEfficiencyRoomTemp%28decimal%29*%5Cfrac%7BEnergyChargedRoomTemp%7D%7BEnergyChargedTestTemp%7D%29%29*100%3DCoulombicEfficiency%28%25%29)  
+![equation](https://latex.codecogs.com/gif.latex?%28%5Cfrac%7BDischarged_%7BTotal%7D%7D%7BCharged_%7BTestTemp%7D%7D%20-%20%28CoulombEff_%7BRoomTemp%7D*%5Cfrac%7BCharged_%7BRoomTemp%7D%7D%7BCharged_%7BTestTemp%7D%7D%29%29*100)  
 Where the offsets created by needing to normalize at room temp can be eliminated.
 ### Creating a Mathematical Model of a Battery Cell from the Measured Parameters
 DOCUMENTATION WORK IN PROGRESS
