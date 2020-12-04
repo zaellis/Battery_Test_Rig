@@ -1,5 +1,10 @@
 # Battery_Test_Rig
-Design documents and Auxiliary Scripts for Battery Cell Testing Rig
+Design documents and Auxiliary Scripts for Battery Cell Testing Rig.  
+analysis.py can be used to derive some battery model components from test data but will is currently without a guide for use 
+and is otherwise incomplete. However it can be useful to examine for how math is used to derive certain model componets and how to implement 
+some of this math in code.  
+MATLAB Corpses is a folder of legacy MATLAB code I have written as a precursor to this python version. It is even more poorly documented and unusable 
+without modification but shows some of how MATLAB can be used to these purposes if you choose to decipher it.  
 
 ## Battery Parameters that can be Modelled as Demonstrated Here
 - OCV: As a function of SOC and temperature
@@ -17,7 +22,7 @@ Design documents and Auxiliary Scripts for Battery Cell Testing Rig
 5. Repeat steps 2-4 except at C/30 charge and until Vmax is reached
 ### Coulombic Efficiency Tests
 
-Comes from OCV Test data. Measures the amount of charge put into the battery vs. what was taken out to determine overall efficiency see [Math -> Determination of Coulombic Efficiency and Derivation of Equations](#determination-of-coulombic-efficiency-and-derivation-of-equations)
+Comes from OCV Test data. Measures the amount of charge put into the battery vs. what was taken out to determine overall efficiency see [Math](#determination-of-coulombic-efficiency-and-derivation-of-equations)
 
 ### Hysteresis tests
 
@@ -25,7 +30,7 @@ Comes from OCV Test data. Measures the amount of charge put into the battery vs.
 2. Charge from 0 - 95
 3. Discharge from 95-5
 4. 5-90, 90-10, 10-85... 55-50
-Data Can be analyzed to determine hysteresis characteristics of the cell when transitioning from charge to discharge and vice versa. See [Data Analysis](#data-analysis)
+Data Can be analyzed to determine hysteresis characteristics of the cell when transitioning from charge to discharge and vice versa. See [Data Analysis](#battery-hysteresis)
 
 ### Static and Dynamic Series Resistance
 
@@ -33,7 +38,7 @@ Data Can be analyzed to determine hysteresis characteristics of the cell when tr
 2. Repeat along charge curve from 0% to 100% with charge at 1C and then rest  
 
 Static resistance can be determined by examining the instantaneous voltage change when charging / discharging starts  
-See [Data Analysis](#data-analysis) for determining dynamic components
+See [Data Analysis](#determining-static-and-dynamic-components-from-data) for determining dynamic components
 
 ## Math
 ### Determination of Coulombic Efficiency and Derivation of Equations
@@ -73,9 +78,40 @@ charge / discharge batteries for one predefined temp.
 ![equation](https://latex.codecogs.com/gif.latex?%28%5Cfrac%7BEnergyDischargedTotal%7D%7BEnergyChargedTestTemp%7D%20-%20%28CoulombicEfficiencyRoomTemp%28decimal%29*%5Cfrac%7BEnergyChargedRoomTemp%7D%7BEnergyChargedTestTemp%7D%29%29*100%3DCoulombicEfficiency%28%25%29)  
 Where the offsets created by needing to normalize at room temp can be eliminated.
 ### Creating a Mathematical Model of a Battery Cell from the Measured Parameters
-DOCUMENTATION WORK IN PROGRESS
+WORK IN PROGRESS  
+See slides by Prof. Gregory Plett for a more thorough explanation of this topic:  
+[Battery Modeling Course Webpage](http://mocha-java.uccs.edu/ECE5710/index.html) [Slides on Equivalent Circuit Model](http://mocha-java.uccs.edu/ECE5710/ECE5710-Notes02.pdf)
 ## Data Analysis
-DOCUMENTATION WORK IN PROGRESS  
+### Determining Static and Dynamic Components from Data
+Assuming an understanding of the ECM discussed (or at least linked to) in the prior section, we can now see how arbitrary inputs to that system
+can help us in system identification. Ignoring the static series resistance and focusing on the RC branches, you can use the step response of the system to 
+characterize its time constant or 1 / (R * C). The way this is done is by applying an arbitrary current step say at 1C until the voltage output of the cell mostly levels out. 
+once the voltage is leveled out you can stop the load and watch as the voltage rises again (assuming the load was discharging the cell to begin with) back to some 
+settling point. If you plot the voltage from the time the load is released to the settled time you will see a the characteristic response of the RC circuit. 
+getting the time constant from this data can be done 1 of 2 ways: Simply by measuring the time it takes to settle and then dividing by 4 or 5 (it takes approximately 4-5 time
+constants to charge or discharge a capacitor in an RC circuit) or use some sort of curve fitting tool to derive the time constant mathematically. Once the time constant is derived it needs to be 
+split into the R and C components. This can be done Via Ohms law. Keeping track of the voltage right after the load is released V_load_release (not the settled value under load because the 
+static resistance plays a part in this) and the voltage once the cell has settled V_no_load_settle, the resistance of the RC branch is (V_no_load_settle - V_load_release) 
+/ Load_current where Load_current was the current you used for the step response. To find the static resistance a similar method is used except the voltage 
+delta used is between V_load_settle (the voltage that the cell settles to under load) and V_load_release. Some good graphics for this can also be found on Dr. 
+Gregory Plett's presentation on this same topic. [Presentation](http://mocha-java.uccs.edu/ECE5710/ECE5710-Notes02.pdf)
+###Battery hysteresis
+WORK IN PROGRESS: Trying to find the best way to automatically detect hysteresis of cells in code.  
+  
+A brief description of hysteresis band in Battery Cells: When examining SOC vs. OCV curves for cells measured at very low load, one might notice that there is 
+a difference in the characteristic curve that the OCV follows based on whether the cell is charging or discharging. The gap between these two SOC vs. OCV curves 
+is known as the hysteresis band. This band is important for battery modelling purposes because examining the very shallow region of SOC vs. OCV slope in the 
+middle of the cell's SOC range, and the width of this band, encountering a cell for the first time and measuring a voltage of 
+around nominal without knowing whether the cell was last in a charging or discharging state creates a large uncertainty in what the SOC actually is 
+around these nominal values there can be on the order of 10s of percent uncertainty in what cell state of charge actually is. VISUAL COMING SOON BUT REVIEW ATTACHED 
+PRESENTATION FOR AN INTRODUCTION TO THIS CONCEPT [Presentation](http://mocha-java.uccs.edu/ECE5710/ECE5710-Notes02.pdf). 
+Keeping track of hysteresis dynamics helps a battery management system better estimate the cell SOC even after long periods of non-use and remove some 
+of the uncertainty created by the combination of this band and the flat nature of the SOC vs. OCV curve at nominal values.
+
+##Helpful References
+
+Dr. Gregory Plett's courses on [Battery Modelling](http://mocha-java.uccs.edu/ECE5710/index.html) and [Battery Management](http://mocha-java.uccs.edu/ECE5720/index.html)  
+[Battery University](https://batteryuniversity.com/)  
   
 ---------------------------------------------------------------------------------------------------------------------
 Copyright 2020 Zachary Ellis
