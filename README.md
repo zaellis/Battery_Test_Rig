@@ -95,7 +95,7 @@ static resistance plays a part in this) and the voltage once the cell has settle
 / Load_current where Load_current was the current you used for the step response. To find the static resistance a similar method is used except the voltage 
 delta used is between V_load_settle (the voltage that the cell settles to under load) and V_load_release. Some good graphics for this can also be found on Dr. 
 Gregory Plett's presentation on this same topic. [Presentation](http://mocha-java.uccs.edu/ECE5710/ECE5710-Notes02.pdf)
-###Battery hysteresis
+### Battery hysteresis
 WORK IN PROGRESS: Trying to find the best way to automatically detect hysteresis of cells in code.  
   
 A brief description of hysteresis band in Battery Cells: When examining SOC vs. OCV curves for cells measured at very low load, one might notice that there is 
@@ -108,7 +108,7 @@ PRESENTATION FOR AN INTRODUCTION TO THIS CONCEPT [Presentation](http://mocha-jav
 Keeping track of hysteresis dynamics helps a battery management system better estimate the cell SOC even after long periods of non-use and remove some 
 of the uncertainty created by the combination of this band and the flat nature of the SOC vs. OCV curve at nominal values.
 
-##Helpful References
+## Helpful References
 
 Dr. Gregory Plett's courses on [Battery Modelling](http://mocha-java.uccs.edu/ECE5710/index.html) and [Battery Management](http://mocha-java.uccs.edu/ECE5720/index.html)  
 [Battery University](https://batteryuniversity.com/)  
